@@ -176,8 +176,31 @@ public class GUI1 extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
+         DefaultTableModel model = (DefaultTableModel) table.getModel();
     
+    // Remove unchecked items
+    for (int i = model.getRowCount() - 1; i >= 0; i--) {
+        String itemName = (String) model.getValueAt(i, 0);
+        boolean isChecked = false;
+        
+        if (itemName.equals("Cut and Fade")) {
+            isChecked = cutAndFade.isSelected();
+        } else if (itemName.equals("Hair Wash")) {
+            isChecked = hairWash.isSelected();
+        } else if (itemName.equals("Hair Dye")) {
+            isChecked = hairDye.isSelected();
+        } else if (itemName.equals("Shave")) {
+            isChecked = shave.isSelected();
+        } else if (itemName.equals("Dreadlocks")) {
+            isChecked = dreadlocks.isSelected();
+        }
+        
+        if (!isChecked) {
+            model.removeRow(i);
+        }
+    }
+    
+    // Add checked items
     if (cutAndFade.isSelected()) {
         model.addRow(new Object[]{"Cut and Fade", 100.00});
     }
